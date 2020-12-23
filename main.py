@@ -31,9 +31,9 @@ def rsa(p, q, m):
     output.append('module n = p * q = ' + str(n))
 
     # select a number e which is smaller than n and coprime resp. relative prim to p-1 and q-1
-    e = n
+    e = 1
     while True:
-        e -= 1
+        e += 1
         if relatively_prime(e, p-1) and relatively_prime(e, p-1):
                 break
     output.append('public exponent e = ' + str(e) + ' ... is relative prim to p-1 and q-1')
