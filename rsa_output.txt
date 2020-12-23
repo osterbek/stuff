@@ -1,0 +1,10 @@
+first prime p =  5
+second prime q =  17
+module n =  85
+public exponent e =  3
+private exponent d =  43
+public key [n, e] =  [85, 3]
+private key [n, d] =  [85, 43]
+message m = 10
+cipher = 65
+decipher = 10
