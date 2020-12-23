@@ -34,7 +34,7 @@ def rsa(p, q, m):
     e = 1
     while True:
         e += 1
-        if relatively_prime(e, p-1) and relatively_prime(e, p-1):
+        if relatively_prime(e, p-1) and relatively_prime(e, q-1):
                 break
     output.append('public exponent e = ' + str(e) + ' ... is relative prim to p-1 and q-1')
 
