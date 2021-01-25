@@ -1,10 +1,10 @@
-first prime p =  13
-second prime q =  53
-module n = p * q =  689
-public exponent e =  685  ... is relative prim to p-1 and q-1
-private exponent d =  133 ... corresponds to constraint (e*d)-1 is divisible by (p-1)*(q-1) without remainder
-public key [n, e] =  [689, 685]
-private key [n, d] =  [689, 133]
-message m = 123
-cipher = (m ** e) % n = 409
-decipher = (cipher ** d) % n = 123
+first prime p = 3
+second prime q = 7
+module n = p * q = 21
+public exponent e = 5 ... is relative prim to p-1 and q-1
+private exponent d = 17 ... corresponds to constraint (e*d)-1 is divisible by (p-1)*(q-1) without remainder
+public key [n, e] = [21, 5]
+private key [n, d] = [21, 17]
+message m = 12
+cipher = (m ** e) % n = 3
+decipher = (cipher ** d) % n = 12
