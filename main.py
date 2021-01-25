@@ -1,4 +1,3 @@
-
 def output_html(content):
     output = '<pre class="tab">\n'
     for line in content:
@@ -25,11 +24,9 @@ def rsa(p, q, m):
     output.append('first prime p = ' + str(p))
     # q = 53
     output.append('second prime q = ' + str(q))
-
     # form the product n = p * q, called module
     n = p * q
     output.append('module n = p * q = ' + str(n))
-
     # select a number e which is smaller than n and coprime resp. relative prim to p-1 and q-1
     e = 1
     while True:
@@ -37,30 +34,26 @@ def rsa(p, q, m):
         if relatively_prime(e, p-1) and relatively_prime(e, q-1):
                 break
     output.append('public exponent e = ' + str(e) + ' ... is relative prim to p-1 and q-1')
-
     # select a number d, so that (e*d)-1 is divisible by (p-1)*(q-1) without remainder
     d = 0
     while True:
         d += 1
         if ((e * d) - 1) % ((p - 1)*(q - 1)) == 0:
-            break
+            if d != e:
+                break
     output.append('private exponent d = ' + str(d) + ' ... corresponds to constraint (e*d)-1 is divisible by (p-1)*(q-1) without remainder')
-
     # public key is the pair (n,e),
     public_key = [n, e]
     output.append('public key [n, e] = ' + str(public_key))
-
     # private key is the pair (n,d).
     private_key = [n, d]
     output.append('private key [n, d] = ' + str(private_key))
-
     # The encryption function is f(m) = c = (m powered e) mod n
     # c is the ciphertext and m is the message.
     # m = 123
     output.append('message m = ' + str(m))
     cipher = (m ** e) % n
     output.append('cipher = (m ** e) % n = ' + str(cipher))
-
     # the decipherment function is g(c) = (c powered d) mod n
     decipher = (cipher ** d) % n
     output.append('decipher = (cipher ** d) % n = ' + str(decipher))
@@ -69,7 +62,7 @@ def rsa(p, q, m):
 
 def http_entry(request):
     request_args = request.args
-    p, q, m = 13, 53, 123
+    p, q, m = 3, 7, 12
     if request_args:
         if 'p' in request_args:
             p = request_args['p']
@@ -81,9 +74,10 @@ def http_entry(request):
 
 
 def local_entry():
-    p, q, m = 13, 53, 123
+    p, q, m = 3, 7, 12
     return rsa(p, q, m)
 
 
 if __name__ == '__main__':
     print(local_entry())
+
