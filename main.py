@@ -20,9 +20,7 @@ def relatively_prime(a, b):
 def rsa(p, q, m):
     output = []
     # take two large prime numbers  p and q
-    # p = 13
     output.append('first prime p = ' + str(p))
-    # q = 53
     output.append('second prime q = ' + str(q))
     # form the product n = p * q, called module
     n = p * q
@@ -50,13 +48,19 @@ def rsa(p, q, m):
     output.append('private key [n, d] = ' + str(private_key))
     # The encryption function is f(m) = c = (m powered e) mod n
     # c is the ciphertext and m is the message.
-    # m = 123
     output.append('message m = ' + str(m))
     cipher = (m ** e) % n
-    output.append('cipher = (m ** e) % n = ' + str(cipher))
+    # due to ... ( m ** k+1 ) mod n = (m · (m ** k mod n)) mod n ... it´s useful to avoid insane power function by recoursion approach
+    cipher_recursive = 1
+    for k in range(1, e+1):
+        cipher_recursive = (cipher_recursive * m) % n
+    output.append('cipher = (m ** e) % n = ' + str(cipher) + ' (recursive = ' + str(cipher_recursive) + ')')
     # the decipherment function is g(c) = (c powered d) mod n
     decipher = (cipher ** d) % n
-    output.append('decipher = (cipher ** d) % n = ' + str(decipher))
+    decipher_recursive = 1
+    for k in range(1, d+1):
+        decipher_recursive = (decipher_recursive * cipher) % n
+    output.append('decipher = (cipher ** d) % n = ' + str(decipher) + ' (recursive = ' + str(decipher_recursive) + ')')
     return output_html(output)
 
 
@@ -74,10 +78,9 @@ def http_entry(request):
 
 
 def local_entry():
-    p, q, m = 3, 7, 12
+    p, q, m = 5, 7, 34
     return rsa(p, q, m)
 
 
 if __name__ == '__main__':
     print(local_entry())
-
